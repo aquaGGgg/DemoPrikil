@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавлние</title>
+</head>
+<body>
+    <div>   
+        <a href = "getOrders.html">"Получить заявки"</a>
+        <a href = "addOrders.html">"Добвить заявки"</a>
+        <a href = "putOrders.html">"Изменить заявки"</a>
+    </div>
+    <table>
+        <tr>
+            <th>Номер</th>
+            <th>Дата начала</th>
+            <th>Оборудование</th>
+            <th>Тип проблемы</th>
+            <th>Описание</th>
+            <th>Клиент</th>
+            <th>Статус</th>
+        </tr>
+        <tr>
+            <td><input id = "number" placeholder="Номер"/></td>
+            <td><input id = "startDate" placeholder="Дата начала" type="date"/></td>
+            <td><input id = "device" placeholder="Оборудование"/></td>
+            <td><input id = "problemType" placeholder="Тип проблемы"/></td>
+            <td><input id = "description" placeholder="Описание"/></td>
+            <td><input id = "client" placeholder="Клиент"/></td>
+            <td>
+                <select id = "status" >
+                    <option >В ожидание</option>
+                    <option >В работе</option>
+                    <option >Выполнено</option>
+                </select>
+            </td>
+            <td><input id="save" value ="Сохранить" type="button"></td>
+        </tr>
+    </table>
+    <script>
+        document.getElementById("save").onclick = async () =>{
+            let order = {
+                number : document.getElementById("number").value,
+                startDate : document.getElementById("startDate").value,
+                device : document.getElementById("device").value,
+                problemType : document.getElementById("problemType").value,
+                description : document.getElementById("description").value,
+                client : document.getElementById("client").value,
+                status : document.getElementById("status").value
+            };
+
+            fetch("http://localhost:5149/",{
+                method: "POST",
+                headers:{ "Content-Type" : "application/json"},
+                body: JSON.stringify(order)
+            })
+        };
+    </script>
+</body>
+</html>

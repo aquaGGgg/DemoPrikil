@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование</title>
+</head>
+<body>
+    <div>   
+        <a href = "getOrders.html">"Получить заявки"</a>
+        <a href = "addOrders.html">"Добвить заявки"</a>
+        <a href = "putOrders.html">"Изменить заявки"</a>
+    </div>
+    <table>
+        <tr>
+            <th>Номер</th>
+            <th>Описание</th>
+            <th>Мастер</th>
+            <th>Статус</th>
+            <th>Комментарий</th>
+        </tr>
+        <tr>
+            <td><input id = "number" placeholder="Номер"/></td>
+            <td><input id = "description" placeholder="Описание"/></td>
+            <td><input id = "master" placeholder="Мастер"/></td>
+            <td>
+                <select id = "status" >
+                    <option >Не выполнено</option>
+                    <option >В работе</option>
+                    <option >Выполнено</option>
+                </select>
+            </td>
+            <td><input id = "comment" placeholder="Комментарий"/></td>
+            <td><input id="save" value ="Сохранить" type="button"></td>
+        </tr>
+    </table>
+    <script>
+        document.getElementById("save").onclick = async () =>{
+            let number = document.getElementById("number").value;
+            let order = {
+                description : document.getElementById("description").value,
+                master : document.getElementById("master").value,
+                status : document.getElementById("status").value,
+                comment : document.getElementById("comment").value
+            };
+
+            fetch(`http://localhost:5149/${number}`,{
+                method: "PUT",
+                headers:{ "Content-Type" : "application/json"},
+                body: JSON.stringify(order)
+            })
+        };
+    </script>
+</body>
+</html>
